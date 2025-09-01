@@ -13,6 +13,8 @@
 bool test_constructors();
 bool test_get_set();
 bool test_assign();
+bool test_vector_addition();
+bool test_scalar_multiplication();
 
 int main()
 {
@@ -21,6 +23,8 @@ int main()
   passed = test_constructors() && passed;
   passed = test_get_set() && passed;
   passed = test_assign() && passed;
+  passed = test_vector_addition() && passed;
+  passed = test_scalar_multiplication() && passed;
 
   if (passed) {
     std::cout << "SUCCESS: All tests passed" << std::endl;
@@ -113,6 +117,58 @@ bool test_assign() {
     assert(v2.get(5) == 6);
     assert(v3.get(1) == 2);
     assert(v3.get(5) == 6);
+  }
+
+  return true;
+}
+
+bool test_vector_addition() {
+  {
+    latc::Vector<int, 6> v({1, 2, 3, 4, 5, 6});
+    latc::Vector<int, 6> v2({2, 3, 4, 5, -6, 10});
+    DEBUG_VAR(v);
+    DEBUG_VAR(v2);
+    latc::Vector<int, 6> v3 = v + v2;
+    DEBUG_VAR(v3);
+
+    assert(v3[0] == 3);
+    assert(v3[1] == 5);
+    assert(v3[2] == 7);
+    assert(v3[3] == 9);
+    assert(v3[4] == -1);
+    assert(v3[5] == 16);
+  }
+
+  return true;
+}
+
+bool test_scalar_multiplication() {
+  {
+    latc::Vector<int, 6> v({1, 2, 3, 4, 5, 6});
+    latc::Vector<int, 6> v2;
+    DEBUG_VAR(v);
+    DEBUG_VAR(v2);
+    assert(v2[3] == 0);
+    v2 = 2 * v;
+    DEBUG_VAR(v2);
+    assert(v2[0] == 2);
+    assert(v2[1] == 4);
+    assert(v2[2] == 6);
+    assert(v2[3] == 8);
+    assert(v2[4] == 10);
+    assert(v2[5] == 12);
+
+    latc::Vector<int, 6> v3;
+    DEBUG_VAR(v3);
+    assert(v3[3] == 0);
+    v3 = 1 * v * 2 * 1;
+    DEBUG_VAR(v3);
+    assert(v3[0] == 2);
+    assert(v3[1] == 4);
+    assert(v3[2] == 6);
+    assert(v3[3] == 8);
+    assert(v3[4] == 10);
+    assert(v3[5] == 12);
   }
 
   return true;

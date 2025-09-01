@@ -88,9 +88,20 @@ namespace latc {
         return to_return;
       }
 
+      // FRIENDS *********************************************************
       // ostream operator
       template <typename T, int D>
       friend std::ostream& operator<<(std::ostream& os, const Vector<T,D>& vec);
+
+      // vector addition
+      template <typename T, int D>
+      friend Vector<T, D> operator+(const Vector<T, D>& lhs, const Vector<T, D>& rhs);
+
+      // scalar multiplication
+      template <typename T, int D>
+      friend Vector<T, D> operator*(const T& scalar, const Vector<T, D>& rhs);
+      template <typename T, int D>
+      friend Vector<T, D> operator*(const Vector<T, D>& lhs, const T& scalar);
 
     private:
 
@@ -105,6 +116,33 @@ namespace latc {
     }
     os << "\b\b ]";
     return os;
+  }
+  
+  template <typename TYPE, int DIMENSION>
+  Vector<TYPE, DIMENSION> operator+(const Vector<TYPE, DIMENSION>& lhs, const Vector<TYPE, DIMENSION>& rhs) {
+    Vector<TYPE, DIMENSION> result;
+    for (int i = 0; i < DIMENSION; ++i) {
+      result._array[i] = lhs._array[i] + rhs._array[i];
+    }
+    return result;
+  }
+
+  template <typename TYPE, int DIMENSION>
+  Vector<TYPE, DIMENSION> operator*(const TYPE& scalar, const Vector<TYPE, DIMENSION>& rhs) {
+    Vector<TYPE, DIMENSION> result;
+    for (int i = 0; i < DIMENSION; ++i) {
+      result._array[i] = scalar * rhs._array[i];
+    }
+    return result;
+  }
+
+  template <typename TYPE, int DIMENSION>
+  Vector<TYPE, DIMENSION> operator*(const Vector<TYPE, DIMENSION>& lhs, const TYPE& scalar) {
+    Vector<TYPE, DIMENSION> result;
+    for (int i = 0; i < DIMENSION; ++i) {
+      result._array[i] = scalar * lhs._array[i];
+    }
+    return result;
   }
   
 
