@@ -1,6 +1,7 @@
 #include <string>
 #include <ostream>
 #include <initializer_list>
+#include <cassert>
 
 namespace latc {
 
@@ -42,7 +43,38 @@ namespace latc {
           _array[i] = rhs._array[i];
         }
       }
+      
+      // Destructor ******************************************************
+      virtual ~Vector() {
+        for (int i = 0; i < DIMENSION; ++i) {
+          _array[i] = 0;
+        }
+      }
 
+      // Assignment ******************************************************
+      Vector& operator=(const Vector& rhs) {
+        if (&rhs == this) return *this;
+        for (int i = 0; i < DIMENSION; ++i) {
+          _array[i] = rhs._array[i];
+        }
+        return *this;
+      }
+
+      // Accessors and Mutators ******************************************
+      void set(unsigned int i, const TYPE& val) {
+        assert(i < DIMENSION);
+        _array[i] = val;
+      }
+
+      const TYPE& get(unsigned int i) const {
+        assert(i < DIMENSION);
+        return _array[i];
+      }
+
+      TYPE& operator[](unsigned int i) {
+        assert(i < DIMENSION);
+        return _array[i];
+      }
 
       // SERIALIZATION ***************************************************
       std::string to_string() const {
@@ -63,7 +95,7 @@ namespace latc {
     private:
 
       TYPE _array[DIMENSION];
-  };
+  }; // End class Vector<TYPE, DIMENSION>;
 
   template <typename TYPE, int DIMENSION>
   std::ostream& operator<<(std::ostream& os, const Vector<TYPE, DIMENSION>& vec) {
@@ -74,5 +106,8 @@ namespace latc {
     os << "\b\b ]";
     return os;
   }
+  
 
-}
+} // end namespace latc;
+
+
