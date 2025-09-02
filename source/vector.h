@@ -76,6 +76,8 @@ namespace latc {
         return _array[i];
       }
 
+      // Attribute Functions *********************************************
+
       // SERIALIZATION ***************************************************
       std::string to_string() const {
         std::string to_return = "[ ";
@@ -102,6 +104,11 @@ namespace latc {
       friend Vector<T, D> operator*(const T& scalar, const Vector<T, D>& rhs);
       template <typename T, int D>
       friend Vector<T, D> operator*(const Vector<T, D>& lhs, const T& scalar);
+
+      // dot product
+      template <typename T, int D>
+      friend T dot(const Vector<T, D>& lhs, const Vector<T, D>& rhs);
+
 
     private:
 
@@ -145,6 +152,14 @@ namespace latc {
     return result;
   }
   
+  template <typename TYPE, int DIMENSION>
+  TYPE dot(const Vector<TYPE, DIMENSION>& lhs, const Vector<TYPE, DIMENSION>& rhs) {
+    TYPE result = 0;
+    for (int i = 0; i < DIMENSION; ++i) {
+      result += lhs._array[i] * rhs._array[i];
+    }
+    return result;
+  }
 
 } // end namespace latc;
 

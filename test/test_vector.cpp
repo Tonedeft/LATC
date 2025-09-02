@@ -15,6 +15,7 @@ bool test_get_set();
 bool test_assign();
 bool test_vector_addition();
 bool test_scalar_multiplication();
+bool test_dot_product();
 
 int main()
 {
@@ -25,6 +26,7 @@ int main()
   passed = test_assign() && passed;
   passed = test_vector_addition() && passed;
   passed = test_scalar_multiplication() && passed;
+  passed = test_dot_product() && passed;
 
   if (passed) {
     std::cout << "SUCCESS: All tests passed" << std::endl;
@@ -169,6 +171,27 @@ bool test_scalar_multiplication() {
     assert(v3[3] == 8);
     assert(v3[4] == 10);
     assert(v3[5] == 12);
+  }
+
+  return true;
+}
+
+bool test_dot_product() {
+  {
+    latc::Vector<int, 3> u({2, -5, 6});
+    latc::Vector<int, 3> v({8, 2, -3});
+    DEBUG_VAR(u);
+    DEBUG_VAR(v);
+    int udotv = latc::dot(u, v);
+    assert(udotv == -12);
+  }
+  {
+    latc::Vector<int, 5> u({4, 2, -3, 5, -1});
+    latc::Vector<int, 5> v({2, 6, -1, -4, 8});
+    DEBUG_VAR(u);
+    DEBUG_VAR(v);
+    int udotv = latc::dot(u, v);
+    assert(udotv == -5);
   }
 
   return true;
