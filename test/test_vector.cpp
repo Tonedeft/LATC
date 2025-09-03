@@ -193,6 +193,14 @@ bool test_dot_product() {
     int udotv = latc::dot(u, v);
     assert(udotv == -5);
   }
+  {
+    latc::Vector<double, 3> u({3, -12, -4.0});
+    DEBUG_VAR(u);
+    std::cout << "norm == " << u.norm() << std::endl;
+    assert(u.norm() == 13);
+  }
+
+
 
   return true;
 }

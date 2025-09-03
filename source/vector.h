@@ -2,6 +2,7 @@
 #include <ostream>
 #include <initializer_list>
 #include <cassert>
+#include <cmath>
 
 namespace latc {
 
@@ -77,6 +78,10 @@ namespace latc {
       }
 
       // Attribute Functions *********************************************
+      // Note: this only works for types that have a sqrt function defined
+      TYPE norm() const {
+        return sqrt(dot(*this, *this));
+      }
 
       // SERIALIZATION ***************************************************
       std::string to_string() const {
