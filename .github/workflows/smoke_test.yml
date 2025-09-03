@@ -20,14 +20,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
           
-      # Step 3: Build the project using the provided Makefile.
+      # Step 2: Build the project using the provided Makefile.
       # This assumes your Makefile has a rule to build your test executable.
-      # Replace 'tests' with the appropriate target name in your Makefile.
-      - name: Build tests
-        run: make test
+      # Replace 'test_vector' with the appropriate target name in your Makefile.
+      - name: Build test_vector
+        run: cmake --build build --target test_vector
 
-      # Step 4: Run the test executable.
+      # Step 3: Run the test executable.
       # This executes the compiled tests and displays the output.
-      # The name 'test_runner' should match the name of your test executable.
+      # The name 'test_vector' should match the name of your test executable.
       - name: Run tests
-        run: ./a.out
+        run: ./build/test_vector
