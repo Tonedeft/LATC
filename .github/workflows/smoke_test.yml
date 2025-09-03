@@ -1,0 +1,33 @@
+# This workflow runs C++ unit tests using a Makefile on every push and pull request.
+
+name: C++ Tests
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build_and_test:
+    # Use the latest Ubuntu environment, which is well-suited for C++ development.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository's code.
+      # This is a standard action that makes your repository's content
+      # available to the workflow.
+      - name: Checkout code
+        uses: actions/checkout@v4
+          
+      # Step 3: Build the project using the provided Makefile.
+      # This assumes your Makefile has a rule to build your test executable.
+      # Replace 'tests' with the appropriate target name in your Makefile.
+      - name: Build tests
+        run: make tests
+
+      # Step 4: Run the test executable.
+      # This executes the compiled tests and displays the output.
+      # The name 'test_runner' should match the name of your test executable.
+      - name: Run tests
+        run: ./a.out
