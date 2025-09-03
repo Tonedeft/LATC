@@ -23,11 +23,15 @@ jobs:
       # Step 2: Create the build artifact directory
       - name: Create build directory
         run: mkdir build
+
+      # Step 3: Setup CMake Environment
+      - name: Initialize CMake
+        run: cmake -S . -B build
           
-      # Step 3: Build the smoke test (test_vector) using CMake.
+      # Step 4: Build the smoke test (test_vector) using CMake.
       - name: Build test_vector
         run: cmake --build build --target test_vector
 
-      # Step 4: Run the test executable.
+      # Step 5: Run the test executable.
       - name: Run tests
         run: ./build/test_vector
