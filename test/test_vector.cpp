@@ -199,6 +199,12 @@ bool test_dot_product() {
     std::cout << "norm == " << u.norm() << std::endl;
     assert(u.norm() == 13);
   }
+  {
+    latc::Vector<double, 4> u({2, -3, 8, -7});
+    DEBUG_VAR(u);
+    std::cout << "norm == " << u.norm() << std::endl;
+    assert(u.norm() == std::sqrt(126));
+  }
 
 
 
