@@ -24,7 +24,7 @@ jobs:
       # This assumes your Makefile has a rule to build your test executable.
       # Replace 'tests' with the appropriate target name in your Makefile.
       - name: Build tests
-        run: make tests
+        run: make test
 
       # Step 4: Run the test executable.
       # This executes the compiled tests and displays the output.
