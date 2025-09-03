@@ -20,14 +20,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
           
-      # Step 2: Build the project using the provided Makefile.
-      # This assumes your Makefile has a rule to build your test executable.
-      # Replace 'test_vector' with the appropriate target name in your Makefile.
+      # Step 2: Create the build artifact directory
+      - name: Create build directory
+        run: mkdir build
+          
+      # Step 3: Build the smoke test (test_vector) using CMake.
       - name: Build test_vector
         run: cmake --build build --target test_vector
 
-      # Step 3: Run the test executable.
-      # This executes the compiled tests and displays the output.
-      # The name 'test_vector' should match the name of your test executable.
+      # Step 4: Run the test executable.
       - name: Run tests
         run: ./build/test_vector
