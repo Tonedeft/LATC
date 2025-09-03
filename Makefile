@@ -1,5 +1,5 @@
 
-phony: all test
+.PHONY: all test
 
 all:
 	g++ source/*.cpp
