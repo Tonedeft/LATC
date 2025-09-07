@@ -3,6 +3,9 @@
 #include <initializer_list>
 #include <cassert>
 #include <cmath>
+// Concepts is a C++20 addition that allows us to generate specific template funcions
+// if the TYPE matches the specified type.
+#include <concepts>
 
 namespace latc {
 
@@ -25,6 +28,7 @@ namespace latc {
         for (int i = 0; i < DIMENSION; ++iter, ++i) {
           _array[i] = *iter;
         }
+        // TODO: Throw exception if the current iter != array.end(); 
       }
 
       // Conversion Constructor
@@ -78,9 +82,14 @@ namespace latc {
       }
 
       // Attribute Functions *********************************************
-      // Note: this only works for types that have a sqrt function defined
-      TYPE norm() const {
+      // Note: this only exists for functions of floating point numbers
+      TYPE norm() const requires std::floating_point<TYPE> {
         return sqrt(dot(*this, *this));
+      }
+
+      // Returns the unit vector in the same direction as this vector
+      Vector normalized() const requires std::floating_point<TYPE> {
+        return *this * (1/this->norm());
       }
 
       // SERIALIZATION ***************************************************
@@ -114,8 +123,13 @@ namespace latc {
       template <typename T, int D>
       friend T dot(const Vector<T, D>& lhs, const Vector<T, D>& rhs);
 
+      // distance
+      template <typename T, int D>
+      friend T distance_between(const Vector<T, D>& lhs, const Vector<T, D>& rhs) requires std::floating_point<T>;
 
-    private:
+
+
+    protected:
 
       TYPE _array[DIMENSION];
   }; // End class Vector<TYPE, DIMENSION>;
@@ -164,6 +178,11 @@ namespace latc {
       result += lhs._array[i] * rhs._array[i];
     }
     return result;
+  }
+  
+  template <typename TYPE, int DIMENSION>
+  TYPE distance_between(const Vector<TYPE, DIMENSION>& lhs, const Vector<TYPE, DIMENSION>& rhs) requires std::floating_point<TYPE> {
+    return (rhs + (lhs * -1)).norm();
   }
 
 } // end namespace latc;

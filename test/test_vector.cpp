@@ -1,4 +1,4 @@
-#include "vector.h"
+#include <vector.h>
 #include <iostream>
 #include <cassert>
 
@@ -204,6 +204,8 @@ bool test_dot_product() {
     DEBUG_VAR(u);
     std::cout << "norm == " << u.norm() << std::endl;
     assert(u.norm() == std::sqrt(126));
+    latc::Vector<double, 4> u_norm = u.normalized();
+    std::cout << "normalized == " << u_norm << std::endl;
   }
 
 

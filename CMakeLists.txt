@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.10)
 # Set the name of your project. This will be the name of your executable.
 project(LATC VERSION 1.0)
 
-# Specify the C++ standard to use. C++17 is a good modern choice.
-set(CMAKE_CXX_STANDARD 17)
+# Specify the C++ standard to use.
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the GoogleTest package.
